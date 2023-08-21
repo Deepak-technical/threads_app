@@ -3,8 +3,7 @@ import '../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
-
-
+import {Toaster} from "react-hot-toast"
 import TopBar from '@/components/shared/Topbar'
 import BottomBar from '@/components/shared/Bottombar'
 import LeftSidebar from '@/components/shared/Leftbar'
@@ -24,7 +23,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en">
+
       <body className={inter.className}>
+      <div><Toaster/></div>
         <TopBar/>
         <main className='flex flex-row'>
           <LeftSidebar/>

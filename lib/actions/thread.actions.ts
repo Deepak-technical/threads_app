@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 
 import { connectToDB } from "../mongoose";
-
+import toast from "react-hot-toast";
 import User from "../models/user.model";
 import Thread from "../models/thread.models";
 import Community from "../models/community.model";
@@ -110,6 +110,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
 
     if (!mainThread) {
       throw new Error("Thread not found");
+    
     }
 
     // Fetch all child threads and their descendants recursively
@@ -150,7 +151,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
       { _id: { $in: Array.from(uniqueCommunityIds) } },
       { $pull: { threads: { $in: descendantThreadIds } } }
     );
-
+    
     revalidatePath(path);
   } catch (error: any) {
     throw new Error(`Failed to delete thread: ${error.message}`);
